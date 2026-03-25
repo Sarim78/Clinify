@@ -8,8 +8,6 @@
 
 **Clinify** is a frontend-only web application developed as a class project for **CP317 (Software Engineering)** at Wilfrid Laurier University. It simulates a centralized appointment management interface for a medical clinic, serving four distinct user roles: patients, doctors, receptionists, and system administrators.
 
-> ⚠️ **Note:** This is a frontend-only project. There is no backend, live database, or server-side logic. All data is handled client-side using mock/static data.
-
 ---
 
 ## 🚨 The Problem
@@ -71,49 +69,6 @@ Patient Selects Time Slot
     Auto-Confirmed       Pending Review
     (shown to patient)   (shown to receptionist)
 ```
-
----
-
-## 🚫 Out of Scope
-
-The following are **not implemented** in this project:
-
-- 🔌 Backend / server-side logic or real database
-- 🎥 Real-time video or messaging between users
-- 💳 Payment or billing functionality
-- 🔐 Real authentication or user session management
-- 🏥 Multi-clinic or hospital integration
-
----
-
-### Installation
-
-```bash
-# Clone the repository
-git clone https://github.com/YOUR_USERNAME/clinify.git
-
-# Navigate into the project
-cd clinify
-
-# Install dependencies
-npm install
-
-# Start the development server
-npm run dev
-```
-
-Then open [http://localhost:5173](http://localhost:5173) in your browser.
-
----
-
-## 🛠️ Tech Stack
-
-| Technology | Purpose |
-|-----------|---------|
-| HTML / CSS / JavaScript | Core frontend |
-| React | Component-based UI |
-| React Router | Client-side routing between role views |
-| Mock Data (JSON) | Simulated appointments and user records |
 
 ---
 
