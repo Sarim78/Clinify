@@ -123,6 +123,7 @@ Clinify/
 | Umair Waraich | Developer |
 | Zayan Syeed | Developer |
 | Niranjan Prabu | Developer |
+| Lado logga | Developer |
 
 <div align="center">
   <sub>Built for CP317 · Wilfrid Laurier University</sub>
