@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Clinify</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--teal:#1a5c4a;--teal2:#247a62;--mint:#e6f4f0;--slate:#1e2d2a;--muted:#6b7c78;--border:#d0ddd9;--red:#c0392b;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:linear-gradient(135deg,#0f2e25,#1a5c4a,#0f2e25);min-height:100vh;display:flex;align-items:center;justify-content:center;padding:20px;}
+.wrap{display:flex;width:860px;max-width:100%;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 24px 80px rgba(0,0,0,0.4);}
+.left{width:300px;flex-shrink:0;background:linear-gradient(160deg,#1a5c4a,#0d3528);padding:48px 36px;display:flex;flex-direction:column;justify-content:space-between;}
+.brand h1{font-family:'DM Serif Display',serif;font-size:34px;color:#fff;letter-spacing:-0.5px;}
+.brand p{font-size:13px;color:rgba(255,255,255,0.5);margin-top:6px;}
+.feat{display:flex;align-items:flex-start;gap:12px;margin-top:28px;}
+.feat-icon{width:36px;height:36px;background:rgba(255,255,255,0.12);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;}
+.feat strong{display:block;font-size:13px;color:#fff;}
+.feat span{font-size:12px;color:rgba(255,255,255,0.45);}
+.left-footer{font-size:11px;color:rgba(255,255,255,0.25);}
+.right{flex:1;padding:48px 44px;}
+.right h2{font-family:'DM Serif Display',serif;font-size:26px;color:var(--slate);margin-bottom:4px;}
+.right .sub{font-size:14px;color:var(--muted);margin-bottom:36px;}
+label{display:block;font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:7px;}
+input{width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:8px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--slate);outline:none;margin-bottom:18px;background:#fafcfb;transition:border 0.2s;}
+input:focus{border-color:var(--teal2);background:#fff;}
+.btn{width:100%;padding:13px;background:var(--teal);color:#fff;border:none;border-radius:8px;font-family:'DM Sans',sans-serif;font-size:15px;font-weight:600;cursor:pointer;transition:background 0.2s;}
+.btn:hover{background:var(--teal2);}
+#msg{font-size:13px;color:var(--red);margin-top:12px;text-align:center;min-height:18px;}
+.demo{margin-top:28px;background:var(--mint);border-radius:8px;padding:14px 16px;}
+.demo p{font-size:11px;font-weight:700;color:var(--teal);text-transform:uppercase;letter-spacing:0.5px;margin-bottom:8px;}
+.demo-row{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);padding:3px 0;border-bottom:1px solid #c8e4dc;}
+.demo-row:last-child{border:none;}
+.demo-role{font-weight:600;color:var(--slate);}
+@media(max-width:600px){.wrap{flex-direction:column;}.left{width:100%;padding:32px 28px;}.right{padding:32px 28px;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="left">
+    <div>
+      <div class="brand"><h1>Clinify</h1><p>Medical Appointment System</p></div>
+      <div class="feat"><div class="feat-icon">🧑‍⚕️</div><div><strong>4 User Roles</strong><span>Patient, Doctor, Receptionist, Admin</span></div></div>
+      <div class="feat"><div class="feat-icon">📅</div><div><strong>Smart Scheduling</strong><span>Real-time slot management</span></div></div>
+      <div class="feat"><div class="feat-icon">🔔</div><div><strong>Notifications</strong><span>Instant booking updates</span></div></div>
+    </div>
+    <div class="left-footer">CP317 · Wilfrid Laurier University</div>
+  </div>
+  <div class="right">
+    <h2>Welcome back</h2>
+    <p class="sub">Sign in to your account to continue</p>
+    <label>Email Address</label>
+    <input type="text" id="email" placeholder="your@email.com"/>
+    <label>Password</label>
+    <input type="password" id="password" placeholder="Enter your password"/>
+    <button class="btn" onclick="login()">Sign In</button>
+    <div id="msg"></div>
+    <div class="demo">
+      <p>Demo Accounts</p>
+      <div class="demo-row"><span class="demo-role">Doctor</span><span>john@example.com / pass</span></div>
+      <div class="demo-row"><span class="demo-role">Patient</span><span>mary@example.com / pass</span></div>
+      <div class="demo-row"><span class="demo-role">Receptionist</span><span>bob@example.com / pass</span></div>
+    </div>
+  </div>
+</div>
+<script>
+/* POST to /api/login, store userID, redirect by role */
+function login(){
+  const email=document.getElementById('email').value.trim();
+  const password=document.getElementById('password').value.trim();
+  document.getElementById('msg').innerText='';
+  fetch(`/api/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`)
+    .then(r=>r.json())
+    .then(data=>{
+      if(!data.role||data.role===''){document.getElementById('msg').innerText='Invalid email or password.';return;}
+      localStorage.setItem('userID',data.id);
+      const role=data.role.trim();
+      if(role==='Doctor')       location.href='Doctor.html';
+      else if(role==='Patient') location.href='Patient.html';
+      else if(role==='Receptionist') location.href='Receptionist.html';
+      else document.getElementById('msg').innerText='Unknown role: '+role;
+    })
+    .catch(()=>document.getElementById('msg').innerText='Cannot reach server. Make sure Java is running on port 8000.');
+}
+document.addEventListener('keydown',e=>{if(e.key==='Enter')login();});
+</script>
+</body>
+</html>

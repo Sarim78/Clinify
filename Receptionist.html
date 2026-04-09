@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Clinify · Receptionist</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--teal:#1a5c4a;--teal2:#247a62;--mint:#e6f4f0;--slate:#1e2d2a;--muted:#6b7c78;--border:#d0ddd9;--red:#c0392b;--bg:#f4f7f6;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);}
+nav{background:var(--teal);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
+.nav-brand{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;}
+.nav-right{display:flex;align-items:center;gap:16px;}
+.nav-role{font-size:12px;background:rgba(255,255,255,0.15);color:#fff;padding:4px 10px;border-radius:20px;font-weight:600;}
+.nav-logout{font-size:13px;color:rgba(255,255,255,0.75);text-decoration:none;}
+.nav-logout:hover{color:#fff;}
+.container{max-width:940px;margin:32px auto;padding:0 20px;}
+#banner{display:none;padding:12px 18px;border-radius:8px;font-size:14px;margin-bottom:20px;font-weight:500;}
+#banner.success{background:#d4edda;color:#155724;border:1px solid #c3e6cb;}
+#banner.error  {background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;}
+.card{background:#fff;border-radius:12px;padding:28px;margin-bottom:24px;box-shadow:0 1px 6px rgba(0,0,0,0.07);}
+.card-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--slate);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);}
+.form-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;}
+.field{display:flex;flex-direction:column;gap:6px;min-width:130px;}
+.field label{font-size:11px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;}
+.field input,.field select{padding:10px 12px;border:1.5px solid var(--border);border-radius:7px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--slate);outline:none;background:#fafcfb;transition:border 0.2s;}
+.field input:focus,.field select:focus{border-color:var(--teal2);}
+table{width:100%;border-collapse:collapse;font-size:14px;}
+th{background:#f0f5f3;padding:10px 14px;text-align:left;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;border-bottom:2px solid var(--border);}
+td{padding:12px 14px;border-bottom:1px solid #eef1f0;vertical-align:middle;}
+tr:last-child td{border-bottom:none;}
+tr:hover td{background:#fafcfb;}
+.badge{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;}
+.badge-confirmed{background:#d4edda;color:#155724;}
+.badge-cancelled{background:#f8d7da;color:#721c24;}
+.badge-available{background:#cce5ff;color:#004085;}
+.btn{padding:8px 18px;border:none;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;}
+.btn-teal{background:var(--teal);color:#fff;}
+.btn-teal:hover{background:var(--teal2);}
+.btn-red{background:var(--red);color:#fff;}
+.btn-red:hover{background:#a93226;}
+.btn-sm{padding:5px 12px;font-size:12px;}
+.empty{color:var(--muted);font-size:14px;text-align:center;padding:24px;}
+</style>
+</head>
+<body>
+<nav>
+  <span class="nav-brand">Clinify</span>
+  <div class="nav-right">
+    <span class="nav-role">Receptionist</span>
+    <a class="nav-logout" href="Login.html">Logout</a>
+  </div>
+</nav>
+
+<div class="container">
+  <div id="banner"></div>
+
+  <!-- create time slot for a doctor -->
+  <div class="card">
+    <div class="card-title">Create Time Slot for Doctor</div>
+    <div class="form-row">
+      <div class="field"><label>Doctor ID</label><input type="number" id="docID" placeholder="e.g. 1"/></div>
+      <div class="field"><label>Date</label><input type="date" id="slotDate"/></div>
+      <div class="field"><label>Start Time</label><input type="time" id="startTime"/></div>
+      <div class="field"><label>End Time</label><input type="time" id="endTime"/></div>
+      <button class="btn btn-teal" onclick="createSlot()">Create Slot</button>
+    </div>
+  </div>
+
+  <!-- delete a slot -->
+  <div class="card">
+    <div class="card-title">Delete Time Slot</div>
+    <div class="form-row">
+      <div class="field"><label>Slot ID</label><input type="number" id="deleteSlotID" placeholder="Slot ID"/></div>
+      <button class="btn btn-red" onclick="deleteSlot()">Delete Slot</button>
+    </div>
+  </div>
+
+  <!-- book appointment for a patient -->
+  <div class="card">
+    <div class="card-title">Book Appointment for Patient</div>
+    <div class="form-row">
+      <div class="field"><label>Patient ID</label><input type="number" id="patID" placeholder="e.g. 2"/></div>
+      <div class="field"><label>Slot ID</label><input type="number" id="bookSlotID" placeholder="Slot ID"/></div>
+      <button class="btn btn-teal" onclick="bookForPatient()">Book</button>
+    </div>
+  </div>
+
+  <!-- cancel appointment -->
+  <div class="card">
+    <div class="card-title">Cancel Appointment</div>
+    <div class="form-row">
+      <div class="field"><label>Appointment ID</label><input type="number" id="cancelApptID" placeholder="Appt ID"/></div>
+      <button class="btn btn-red" onclick="cancelAppt()">Cancel Appointment</button>
+    </div>
+  </div>
+
+  <!-- all appointments -->
+  <div class="card">
+    <div class="card-title">All Appointments</div>
+    <table>
+      <thead><tr><th>Appt ID</th><th>Patient ID</th><th>Doctor ID</th><th>Slot ID</th><th>Status</th></tr></thead>
+      <tbody id="apptTable"><tr><td colspan="5" class="empty">Click refresh to load.</td></tr></tbody>
+    </table>
+    <div style="margin-top:16px;">
+      <button class="btn btn-teal btn-sm" onclick="loadAppts()">Refresh Appointments</button>
+    </div>
+  </div>
+</div>
+
+<script>
+function showBanner(msg,type){
+  const b=document.getElementById('banner');
+  b.className=type; b.innerText=msg; b.style.display='block';
+  setTimeout(()=>b.style.display='none',3500);
+}
+
+/* create slot: GET /receptionist/manage/createSlot?doctorID=&date=&startTime=&endTime= */
+function createSlot(){
+  const doctorID=document.getElementById('docID').value;
+  const date=document.getElementById('slotDate').value;
+  const start=document.getElementById('startTime').value;
+  const end=document.getElementById('endTime').value;
+  if(!doctorID||!date||!start||!end){showBanner('Please fill in all fields.','error');return;}
+  fetch(`/receptionist/manage/createSlot?doctorID=${doctorID}&date=${date}&startTime=${start}&endTime=${end}`)
+    .then(r=>r.text())
+    .then(resp=>{
+      if(resp.includes('OK')||resp.trim()==='OK'){showBanner('Time slot created.','success');}
+      else showBanner('Error: '+resp,'error');
+    })
+    .catch(()=>showBanner('Server error.','error'));
+}
+
+/* delete slot: GET /receptionist/manage/deleteSlot?slotID= */
+function deleteSlot(){
+  const slotID=document.getElementById('deleteSlotID').value;
+  if(!slotID){showBanner('Enter a Slot ID.','error');return;}
+  fetch(`/receptionist/manage/deleteSlot?slotID=${slotID}`)
+    .then(r=>r.text())
+    .then(resp=>{
+      if(resp.trim()==='OK'){showBanner('Slot deleted.','success');}
+      else showBanner('Error: '+resp,'error');
+    })
+    .catch(()=>showBanner('Server error.','error'));
+}
+
+/* book for patient: GET /receptionist/manage/book?patientID=&slotID= */
+function bookForPatient(){
+  const patientID=document.getElementById('patID').value;
+  const slotID=document.getElementById('bookSlotID').value;
+  if(!patientID||!slotID){showBanner('Enter both Patient ID and Slot ID.','error');return;}
+  fetch(`/receptionist/manage/book?patientID=${patientID}&slotID=${slotID}`)
+    .then(r=>r.text())
+    .then(resp=>{
+      if(resp.includes('appointmentID')){
+        const data=JSON.parse(resp);
+        showBanner('Appointment booked! ID: '+data.appointmentID,'success');
+        loadAppts();
+      } else showBanner('Error: '+resp,'error');
+    })
+    .catch(()=>showBanner('Server error.','error'));
+}
+
+/* cancel: GET /receptionist/manage/cancel?appointmentID= */
+function cancelAppt(){
+  const apptID=document.getElementById('cancelApptID').value;
+  if(!apptID){showBanner('Enter an Appointment ID.','error');return;}
+  fetch(`/receptionist/manage/cancel?appointmentID=${apptID}`)
+    .then(r=>r.text())
+    .then(resp=>{
+      if(resp.trim()==='OK'){showBanner('Appointment cancelled.','success');loadAppts();}
+      else showBanner('Error: '+resp,'error');
+    })
+    .catch(()=>showBanner('Server error.','error'));
+}
+
+/* load all appointments by checking each known patientID */
+function loadAppts(){
+  const tb=document.getElementById('apptTable');
+  tb.innerHTML='<tr><td colspan="5" class="empty">Loading...</td></tr>';
+  /* fetch appointments for patients 1 through 10 and combine */
+  const promises=[];
+  for(let i=1;i<=10;i++) promises.push(fetch(`/patient/appointments/myappointments?patientID=${i}`).then(r=>r.json()).catch(()=>[]));
+  Promise.all(promises).then(results=>{
+    const all=[].concat(...results);
+    if(!all.length){tb.innerHTML='<tr><td colspan="5" class="empty">No appointments found.</td></tr>';return;}
+    tb.innerHTML=all.map(a=>{
+      const bc=a.status==='Confirmed'?'badge-confirmed':'badge-cancelled';
+      return `<tr>
+        <td>${a.appointmentID}</td><td>${a.patientID||'?'}</td><td>${a.doctorID}</td><td>${a.slotID}</td>
+        <td><span class="badge ${bc}">${a.status}</span></td>
+      </tr>`;
+    }).join('');
+  });
+}
+</script>
+</body>
+</html>
