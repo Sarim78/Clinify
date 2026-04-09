@@ -6,6 +6,8 @@
 
 </div>
 
+---
+
 ## Overview
 
 Clinify is a web-based medical appointment management system built for CP317 at Wilfrid Laurier University. It supports four user roles: patients, doctors, receptionists, and administrators.
@@ -13,6 +15,8 @@ Clinify is a web-based medical appointment management system built for CP317 at 
 ## The Problem
 
 Manual clinic scheduling causes double bookings, long wait times, too much back and forth between staff and patients, and missed appointments.
+
+---
 
 ## User Roles
 
@@ -23,6 +27,8 @@ Manual clinic scheduling causes double bookings, long wait times, too much back 
 | Doctor | Manage availability, view schedule, and update appointment statuses |
 | Administrator | Manage user accounts, configure settings, and view reports |
 
+---
+
 ## Features
 
 - Role-based dashboards for each user type
@@ -32,6 +38,8 @@ Manual clinic scheduling causes double bookings, long wait times, too much back 
 - Admin panel for user management
 - Notification alerts for appointment updates
 - Responsive design for desktop and mobile
+
+---
 
 ## Appointment Flow
 
@@ -53,6 +61,8 @@ Patient Selects Time Slot
     Auto-Confirmed       Pending Review
     (shown to patient)   (shown to receptionist)
 ```
+
+---
 
 ## Running Locally
 
@@ -99,18 +109,7 @@ Clinify is a frontend-only project with no build tools or frameworks needed. Jus
    ```
 3. Open `http://localhost:3000/index.html` in your browser
 
-## Project Structure
-
-```
-Clinify/
-├── index.html          # Main entry point, open this to start the app
-├── Login.html          # Login and role selection
-├── patient/            # Patient dashboard views
-├── doctor/             # Doctor dashboard views
-├── receptionist/       # Receptionist dashboard views
-├── admin/              # Admin dashboard views
-└── assets/             # CSS, JS, images
-```
+---
 
 ## Team
 
@@ -125,6 +124,8 @@ Clinify/
 | Niranjan Prabu | Developer |
 | Lado logga | Developer |
 | Joshua Ehikhuemen | Developer |
+
+---
 
 <div align="center">
   <sub>Built for CP317 · Wilfrid Laurier University</sub>
