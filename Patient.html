@@ -9,42 +9,34 @@
 :root{--teal:#1a5c4a;--teal2:#247a62;--mint:#e6f4f0;--slate:#1e2d2a;--muted:#6b7c78;--border:#d0ddd9;--red:#c0392b;--bg:#f4f7f6;}
 *{box-sizing:border-box;margin:0;padding:0;}
 body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--slate);}
-/* nav */
 nav{background:var(--teal);padding:0 32px;display:flex;align-items:center;justify-content:space-between;height:60px;box-shadow:0 2px 12px rgba(0,0,0,0.15);}
 .nav-brand{font-family:'DM Serif Display',serif;font-size:22px;color:#fff;}
 .nav-right{display:flex;align-items:center;gap:16px;}
 .nav-role{font-size:12px;background:rgba(255,255,255,0.15);color:#fff;padding:4px 10px;border-radius:20px;font-weight:600;}
-.nav-logout{font-size:13px;color:rgba(255,255,255,0.75);text-decoration:none;transition:color 0.2s;}
+.nav-logout{font-size:13px;color:rgba(255,255,255,0.75);text-decoration:none;}
 .nav-logout:hover{color:#fff;}
-/* layout */
 .container{max-width:900px;margin:32px auto;padding:0 20px;}
-/* banner */
 #banner{display:none;padding:12px 18px;border-radius:8px;font-size:14px;margin-bottom:20px;font-weight:500;}
 #banner.success{background:#d4edda;color:#155724;border:1px solid #c3e6cb;}
-#banner.error  {background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;}
-/* card */
+#banner.error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;}
 .card{background:#fff;border-radius:12px;padding:28px;margin-bottom:24px;box-shadow:0 1px 6px rgba(0,0,0,0.07);}
 .card-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--slate);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);}
-/* table */
 table{width:100%;border-collapse:collapse;font-size:14px;}
 th{background:#f0f5f3;padding:10px 14px;text-align:left;font-size:12px;font-weight:600;color:var(--muted);text-transform:uppercase;letter-spacing:0.4px;border-bottom:2px solid var(--border);}
 td{padding:12px 14px;border-bottom:1px solid #eef1f0;vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:#fafcfb;}
-/* badges */
 .badge{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;}
 .badge-confirmed{background:#d4edda;color:#155724;}
 .badge-cancelled{background:#f8d7da;color:#721c24;}
 .badge-available{background:#cce5ff;color:#004085;}
-.badge-booked   {background:#fff3cd;color:#856404;}
-/* buttons */
+.badge-booked{background:#fff3cd;color:#856404;}
 .btn{padding:7px 16px;border:none;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;}
 .btn-teal{background:var(--teal);color:#fff;}
 .btn-teal:hover{background:var(--teal2);}
 .btn-red{background:var(--red);color:#fff;}
 .btn-red:hover{background:#a93226;}
 .empty{color:var(--muted);font-size:14px;text-align:center;padding:24px;}
-/* modal overlay */
 .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,0.45);z-index:100;align-items:center;justify-content:center;}
 .overlay.show{display:flex;}
 .modal{background:#fff;border-radius:14px;padding:36px 32px;width:380px;box-shadow:0 20px 60px rgba(0,0,0,0.2);text-align:center;}
@@ -55,7 +47,7 @@ tr:hover td{background:#fafcfb;}
 </head>
 <body>
 <nav>
-<a class="nav-brand" href="index.html" style="text-decoration:none;">Clinify</a>
+  <a class="nav-brand" href="index.html" style="text-decoration:none;">Clinify</a>
   <div class="nav-right">
     <span class="nav-role">Patient</span>
     <a class="nav-logout" href="Login.html">Logout</a>
@@ -65,113 +57,119 @@ tr:hover td{background:#fafcfb;}
 <div class="container">
   <div id="banner"></div>
 
-  <!-- available slots -->
   <div class="card">
     <div class="card-title">Available Time Slots</div>
     <table>
-      <thead><tr><th>Date</th><th>Start</th><th>End</th><th>Status</th><th>Action</th></tr></thead>
-      <tbody id="slotTable"><tr><td colspan="5" class="empty">Loading...</td></tr></tbody>
+      <thead><tr><th>Slot ID</th><th>Doctor ID</th><th>Date</th><th>Start</th><th>End</th><th>Action</th></tr></thead>
+      <tbody id="slotTable"><tr><td colspan="6" class="empty">No available slots right now.</td></tr></tbody>
     </table>
   </div>
 
-  <!-- my appointments -->
   <div class="card">
     <div class="card-title">My Appointments</div>
     <table>
-      <thead><tr><th>Appt ID</th><th>Slot ID</th><th>Doctor ID</th><th>Status</th><th>Action</th></tr></thead>
-      <tbody id="apptTable"><tr><td colspan="5" class="empty">Loading...</td></tr></tbody>
+      <thead><tr><th>Appt ID</th><th>Slot ID</th><th>Doctor ID</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="apptTable"><tr><td colspan="6" class="empty">No appointments yet.</td></tr></tbody>
     </table>
   </div>
 </div>
 
-<!-- booking confirmation modal -->
 <div class="overlay" id="overlay">
   <div class="modal">
     <h3>Confirm Booking</h3>
     <p id="modalText"></p>
     <div class="modal-btns">
       <button class="btn btn-teal" onclick="confirmBook()">Confirm</button>
-      <button class="btn btn-red"  onclick="closeModal()">Cancel</button>
+      <button class="btn btn-red" onclick="closeModal()">Cancel</button>
     </div>
   </div>
 </div>
 
 <script>
-const patientID=localStorage.getItem('userID');
-let pendingSlot=null;
+const patientID = String(localStorage.getItem('userID'));
+let pendingSlot = null;
 
-function showBanner(msg,type){
-  const b=document.getElementById('banner');
-  b.className=type; b.innerText=msg; b.style.display='block';
-  setTimeout(()=>b.style.display='none',3500);
+function showBanner(msg, type) {
+  const b = document.getElementById('banner');
+  b.className = type; b.innerText = msg; b.style.display = 'block';
+  setTimeout(() => b.style.display = 'none', 3500);
 }
 
-/* load available slots: GET /patient/appointments/available */
-function loadSlots(){
-  fetch('/patient/appointments/available')
-    .then(r=>r.json())
-    .then(slots=>{
-      const tb=document.getElementById('slotTable');
-      if(!slots.length){tb.innerHTML='<tr><td colspan="5" class="empty">No available slots right now.</td></tr>';return;}
-      tb.innerHTML=slots.map(s=>`
-        <tr>
-          <td>${s.date}</td><td>${s.startTime}</td><td>${s.endTime}</td>
-          <td><span class="badge badge-available">${s.status}</span></td>
-          <td><button class="btn btn-teal" onclick="openModal(${s.slotID},'${s.date} ${s.startTime}–${s.endTime}')">Book</button></td>
-        </tr>`).join('');
-    })
-    .catch(()=>showBanner('Could not load slots.','error'));
+function getSlots() { return JSON.parse(localStorage.getItem('slots') || '[]'); }
+function saveSlots(s) { localStorage.setItem('slots', JSON.stringify(s)); }
+function getAppts() { return JSON.parse(localStorage.getItem('appointments') || '[]'); }
+function saveAppts(a) { localStorage.setItem('appointments', JSON.stringify(a)); }
+
+function loadSlots() {
+  const available = getSlots().filter(s => s.status === 'Available');
+  const tb = document.getElementById('slotTable');
+  if (!available.length) { tb.innerHTML = '<tr><td colspan="6" class="empty">No available slots right now.</td></tr>'; return; }
+  tb.innerHTML = available.map(s => `
+    <tr>
+      <td>${s.slotID}</td><td>${s.doctorID}</td><td>${s.date}</td>
+      <td>${s.startTime}</td><td>${s.endTime}</td>
+      <td><button class="btn btn-teal" onclick="openModal(${s.slotID},'${s.date} ${s.startTime}–${s.endTime}')">Book</button></td>
+    </tr>`).join('');
 }
 
-/* load my appointments: GET /patient/appointments/myappointments?patientID= */
-function loadAppts(){
-  fetch(`/patient/appointments/myappointments?patientID=${patientID}`)
-    .then(r=>r.json())
-    .then(appts=>{
-      const tb=document.getElementById('apptTable');
-      if(!appts.length){tb.innerHTML='<tr><td colspan="5" class="empty">No appointments yet.</td></tr>';return;}
-      tb.innerHTML=appts.map(a=>{
-        const bc=a.status==='Confirmed'?'badge-confirmed':'badge-cancelled';
-        const cancelBtn=a.status==='Confirmed'
-          ?`<button class="btn btn-red" onclick="cancelAppt(${a.appointmentID})">Cancel</button>`:'';
-        return `<tr>
-          <td>${a.appointmentID}</td><td>${a.slotID}</td><td>${a.doctorID}</td>
-          <td><span class="badge ${bc}">${a.status}</span></td>
-          <td>${cancelBtn}</td>
-        </tr>`;
-      }).join('');
-    })
-    .catch(()=>showBanner('Could not load appointments.','error'));
+function loadAppts() {
+  // String comparison to avoid type mismatch bug
+  const mine = getAppts().filter(a => String(a.patientID) === patientID);
+  const tb = document.getElementById('apptTable');
+  if (!mine.length) { tb.innerHTML = '<tr><td colspan="6" class="empty">No appointments yet.</td></tr>'; return; }
+  tb.innerHTML = mine.map(a => {
+    const slot = getSlots().find(s => s.slotID === a.slotID);
+    const bc = a.status === 'Confirmed' ? 'badge-confirmed' : 'badge-cancelled';
+    const cancelBtn = a.status === 'Confirmed'
+      ? `<button class="btn btn-red" onclick="cancelAppt(${a.apptID})">Cancel</button>` : '—';
+    return `<tr>
+      <td>${a.apptID}</td><td>${a.slotID}</td><td>${slot ? slot.doctorID : '—'}</td>
+      <td>${slot ? slot.date : '—'}</td>
+      <td><span class="badge ${bc}">${a.status}</span></td>
+      <td>${cancelBtn}</td>
+    </tr>`;
+  }).join('');
 }
 
-function openModal(slotID,label){
-  pendingSlot=slotID;
-  document.getElementById('modalText').innerText=`Book appointment for ${label}?`;
+function openModal(slotID, label) {
+  pendingSlot = slotID;
+  document.getElementById('modalText').innerText = `Book appointment for ${label}?`;
   document.getElementById('overlay').classList.add('show');
 }
-function closeModal(){pendingSlot=null;document.getElementById('overlay').classList.remove('show');}
+function closeModal() { pendingSlot = null; document.getElementById('overlay').classList.remove('show'); }
 
-/* book: GET /patient/appointments/book?patientID=&slotID= */
-function confirmBook(){
-  const slot=pendingSlot; closeModal();
-  fetch(`/patient/appointments/book?patientID=${patientID}&slotID=${slot}`)
-    .then(r=>r.json())
-    .then(data=>{
-      if(data.success){showBanner('Appointment booked! ID: '+data.appointmentID,'success');loadSlots();loadAppts();}
-      else showBanner('Booking failed: '+data.error,'error');
-    })
-    .catch(()=>showBanner('Server error.','error'));
+function confirmBook() {
+  const slotID = pendingSlot; closeModal();
+  const slots = getSlots();
+  const slot = slots.find(s => s.slotID === slotID);
+  if (!slot || slot.status !== 'Available') { showBanner('Slot no longer available.', 'error'); loadSlots(); return; }
+
+  const appts = getAppts();
+  const newID = appts.length ? Math.max(...appts.map(a => a.apptID)) + 1 : 1;
+  appts.push({ apptID: newID, patientID: patientID, slotID: slotID, status: 'Confirmed' });
+  saveAppts(appts);
+
+  slot.status = 'Booked';
+  saveSlots(slots);
+
+  showBanner('Appointment booked! ID: ' + newID, 'success');
+  loadSlots(); loadAppts();
 }
 
-/* cancel: GET /patient/appointments/cancel?patientID=&appointmentID= */
-function cancelAppt(apptID){
-  fetch(`/patient/appointments/cancel?patientID=${patientID}&appointmentID=${apptID}`)
-    .then(r=>r.json())
-    .then(data=>{
-      if(data.success){showBanner('Appointment cancelled.','success');loadSlots();loadAppts();}
-      else showBanner('Cancel failed: '+data.error,'error');
-    })
-    .catch(()=>showBanner('Server error.','error'));
+function cancelAppt(apptID) {
+  const appts = getAppts();
+  const appt = appts.find(a => a.apptID === apptID);
+  if (!appt) { showBanner('Appointment not found.', 'error'); return; }
+
+  appt.status = 'Cancelled';
+  saveAppts(appts);
+
+  const slots = getSlots();
+  const slot = slots.find(s => s.slotID === appt.slotID);
+  if (slot) { slot.status = 'Available'; saveSlots(slots); }
+
+  showBanner('Appointment cancelled.', 'success');
+  loadSlots(); loadAppts();
 }
 
 loadSlots();
