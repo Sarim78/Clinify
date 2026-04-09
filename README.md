@@ -74,11 +74,15 @@ Patient Selects Time Slot
 
 ## 👨‍💻 Team
 
-> CP317 — Software Engineering | Wilfrid Laurier University
+> CP317: Software Engineering | Wilfrid Laurier University
 
 | Name | Role |
 |------|------|
-| *(Add team members here)* | *(Add roles here)* |
+| *Sarim Siddiqui* | *Developer* |
+| *James Coulson* | *Developer* |
+| *Ebrahim Ghani* | *Developer* |
+| *Jiale Zhang* | *Developer* |
+| *Umair Waraich* | *Developer* |
 
 ---
 
