@@ -64,25 +64,35 @@ input:focus{border-color:var(--teal2);background:#fff;}
   </div>
 </div>
 <script>
-/* POST to /api/login, store userID, redirect by role */
-function login(){
-  const email=document.getElementById('email').value.trim();
-  const password=document.getElementById('password').value.trim();
-  document.getElementById('msg').innerText='';
-  fetch(`/api/login?email=${encodeURIComponent(email)}&password=${encodeURIComponent(password)}`)
-    .then(r=>r.json())
-    .then(data=>{
-      if(!data.role||data.role===''){document.getElementById('msg').innerText='Invalid email or password.';return;}
-      localStorage.setItem('userID',data.id);
-      const role=data.role.trim();
-      if(role==='Doctor')       location.href='Doctor.html';
-      else if(role==='Patient') location.href='Patient.html';
-      else if(role==='Receptionist') location.href='Receptionist.html';
-      else document.getElementById('msg').innerText='Unknown role: '+role;
-    })
-    .catch(()=>document.getElementById('msg').innerText='Cannot reach server. Make sure Java is running on port 8000.');
+// Mock login: no server needed
+const USERS = [
+  { email: "john@example.com",  password: "pass", role: "Doctor",       id: "1" },
+  { email: "mary@example.com",  password: "pass", role: "Patient",      id: "2" },
+  { email: "bob@example.com",   password: "pass", role: "Receptionist", id: "3" },
+  { email: "admin@example.com", password: "pass", role: "Admin",        id: "4" }
+];
+
+function login() {
+  const email    = document.getElementById('email').value.trim();
+  const password = document.getElementById('password').value.trim();
+  document.getElementById('msg').innerText = '';
+
+  const user = USERS.find(u => u.email === email && u.password === password);
+
+  if (!user) {
+    document.getElementById('msg').innerText = 'Invalid email or password.';
+    return;
+  }
+
+  localStorage.setItem('userID', user.id);
+
+  if      (user.role === 'Doctor')       location.href = 'Doctor.html';
+  else if (user.role === 'Patient')      location.href = 'Patient.html';
+  else if (user.role === 'Receptionist') location.href = 'Receptionist.html';
+  else    document.getElementById('msg').innerText = 'No dashboard for role: ' + user.role;
 }
-document.addEventListener('keydown',e=>{if(e.key==='Enter')login();});
+
+document.addEventListener('keydown', e => { if (e.key === 'Enter') login(); });
 </script>
 </body>
 </html>
