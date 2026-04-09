@@ -21,7 +21,6 @@
 html{scroll-behavior:smooth;}
 body{font-family:'DM Sans',sans-serif;background:#fff;color:var(--slate);}
 
-/* NAV */
 nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,0.92);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);}
 .nav-inner{max-width:1100px;margin:0 auto;padding:0 32px;height:64px;display:flex;align-items:center;justify-content:space-between;}
 .nav-brand{font-family:'DM Serif Display',serif;font-size:26px;color:var(--teal);letter-spacing:-0.5px;}
@@ -31,7 +30,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .nav-cta{background:var(--teal);color:#fff!important;padding:9px 22px;border-radius:8px;font-weight:600!important;transition:background .2s!important;}
 .nav-cta:hover{background:var(--teal2)!important;}
 
-/* HERO */
 .hero{padding:140px 32px 100px;max-width:1100px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
 .hero-eyebrow{display:inline-flex;align-items:center;gap:8px;background:var(--mint);color:var(--teal);font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:6px 14px;border-radius:100px;margin-bottom:24px;}
 .hero-eyebrow span{width:6px;height:6px;background:var(--teal3);border-radius:50%;display:inline-block;}
@@ -44,7 +42,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .btn-outline{border:2px solid var(--border);color:var(--slate);padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;text-decoration:none;transition:border-color .2s,color .2s;display:inline-block;}
 .btn-outline:hover{border-color:var(--teal);color:var(--teal);}
 
-/* HERO CARD */
 .hero-visual{position:relative;}
 .hero-card{background:#fff;border-radius:20px;box-shadow:0 20px 60px rgba(26,92,74,0.14);overflow:hidden;border:1px solid var(--border);}
 .card-header{background:linear-gradient(135deg,#1a5c4a,#0d3528);padding:24px 28px;display:flex;align-items:center;gap:12px;}
@@ -61,13 +58,11 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .badge-blue{background:#dcedf4;color:#1a527a;}
 .badge-orange{background:#f4ecdc;color:#7a521a;}
 
-/* STATS STRIP */
 .stats{background:var(--teal);padding:56px 32px;}
 .stats-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:32px;text-align:center;}
 .stat-num{font-family:'DM Serif Display',serif;font-size:44px;color:#fff;letter-spacing:-1px;}
 .stat-label{font-size:13px;color:rgba(255,255,255,0.55);margin-top:4px;text-transform:uppercase;letter-spacing:0.5px;}
 
-/* FEATURES */
 .features{padding:100px 32px;background:var(--bg);}
 .section-label{text-align:center;font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--teal);margin-bottom:14px;}
 .section-title{text-align:center;font-family:'DM Serif Display',serif;font-size:42px;letter-spacing:-1px;color:var(--slate);margin-bottom:12px;}
@@ -79,7 +74,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .feat-card h3{font-size:17px;font-weight:700;color:var(--slate);margin-bottom:10px;}
 .feat-card p{font-size:14px;line-height:1.65;color:var(--muted);}
 
-/* ROLES */
 .roles{padding:100px 32px;background:#fff;}
 .roles-inner{max-width:1100px;margin:0 auto;}
 .roles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:60px;}
@@ -91,19 +85,16 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .role-card ul{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px;}
 .role-card ul li{font-size:12px;background:var(--mint);color:var(--teal);padding:4px 12px;border-radius:100px;font-weight:600;}
 
-/* CTA SECTION */
 .cta-section{background:linear-gradient(135deg,#0f2e25,#1a5c4a);padding:100px 32px;text-align:center;}
 .cta-section h2{font-family:'DM Serif Display',serif;font-size:46px;color:#fff;letter-spacing:-1px;margin-bottom:18px;}
 .cta-section p{font-size:17px;color:rgba(255,255,255,0.6);max-width:500px;margin:0 auto 40px;}
 .btn-white{background:#fff;color:var(--teal);padding:14px 32px;border-radius:10px;font-size:15px;font-weight:700;text-decoration:none;display:inline-block;transition:transform .15s,box-shadow .15s;}
 .btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,0.2);}
 
-/* FOOTER */
 footer{background:var(--slate);padding:40px 32px;text-align:center;}
 footer p{font-size:13px;color:rgba(255,255,255,0.3);}
 footer span{color:rgba(255,255,255,0.5);}
 
-/* RESPONSIVE */
 @media(max-width:800px){
   .hero{grid-template-columns:1fr;gap:48px;padding-top:110px;}
   .hero h1{font-size:40px;}
@@ -114,7 +105,6 @@ footer span{color:rgba(255,255,255,0.5);}
   .nav-links{display:none;}
 }
 
-/* FADE-IN ANIMATION */
 @keyframes fadeUp{from{opacity:0;transform:translateY(24px);}to{opacity:1;transform:translateY(0);}}
 .hero-text{animation:fadeUp .7s ease both;}
 .hero-visual{animation:fadeUp .7s .2s ease both;}
@@ -122,7 +112,6 @@ footer span{color:rgba(255,255,255,0.5);}
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
   <div class="nav-inner">
     <div class="nav-brand">Clinify</div>
@@ -134,15 +123,14 @@ footer span{color:rgba(255,255,255,0.5);}
   </div>
 </nav>
 
-<!-- HERO -->
 <section>
   <div class="hero">
     <div class="hero-text">
       <div class="hero-eyebrow"><span></span>Medical Appointment System</div>
       <h1>Healthcare scheduling, <em>simplified.</em></h1>
-      <p>Clinify connects patients, doctors, and receptionists in one seamless platform. Book appointments, manage schedules, and get notified instantly.</p>
+      <p>Clinify connects patients, doctors, and receptionists in one platform. Book appointments, manage schedules, and stay organized.</p>
       <div class="hero-actions">
-        <a href="Login.html" class="btn-primary">Get Started →</a>
+        <a href="Login.html" class="btn-primary">Get Started</a>
         <a href="#features" class="btn-outline">Learn More</a>
       </div>
     </div>
@@ -192,7 +180,6 @@ footer span{color:rgba(255,255,255,0.5);}
   </div>
 </section>
 
-<!-- STATS -->
 <section class="stats">
   <div class="stats-inner">
     <div>
@@ -214,57 +201,55 @@ footer span{color:rgba(255,255,255,0.5);}
   </div>
 </section>
 
-<!-- FEATURES -->
 <section class="features" id="features">
   <div class="section-label">Features</div>
   <div class="section-title">Everything your clinic needs</div>
-  <p class="section-sub">Clinify handles the complexity of scheduling so your team can focus on patient care.</p>
+  <p class="section-sub">Clinify takes care of scheduling so your team can focus on patient care.</p>
   <div class="features-grid">
     <div class="feat-card">
       <div class="feat-icon">📅</div>
       <h3>Smart Scheduling</h3>
-      <p>Real-time time slot management with automatic conflict detection. Doctors set availability; patients book instantly.</p>
+      <p>Doctors set their availability and patients book open slots instantly with no conflicts.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">🔔</div>
       <h3>Instant Notifications</h3>
-      <p>Patients and doctors are notified the moment an appointment is booked, updated, or cancelled.</p>
+      <p>Patients and doctors are notified when an appointment is booked, updated, or cancelled.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">🧑‍⚕️</div>
       <h3>Multi-Role Access</h3>
-      <p>Separate dashboards for Patients, Doctors, Receptionists, and Admins — each with exactly the tools they need.</p>
+      <p>Separate dashboards for Patients, Doctors, Receptionists, and Admins with the right tools for each.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">🧾</div>
       <h3>Invoice Management</h3>
-      <p>Automatically generate invoices for completed appointments. Billing has never been this seamless.</p>
+      <p>Generate invoices automatically for completed appointments.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">🔐</div>
       <h3>Secure Login</h3>
-      <p>Role-based authentication ensures every user sees only what's relevant to them, keeping data private.</p>
+      <p>Each user only sees what is relevant to their role, keeping all data private and secure.</p>
     </div>
     <div class="feat-card">
       <div class="feat-icon">📊</div>
       <h3>Appointment History</h3>
-      <p>Full records of past and upcoming appointments, accessible at any time by both patients and providers.</p>
+      <p>View past and upcoming appointments anytime from both the patient and provider side.</p>
     </div>
   </div>
 </section>
 
-<!-- ROLES -->
 <section class="roles" id="roles">
   <div class="roles-inner">
     <div class="section-label">Who It's For</div>
     <div class="section-title">Built for every role</div>
-    <p class="section-sub">Clinify gives each user exactly what they need — nothing more, nothing less.</p>
+    <p class="section-sub">Each user gets a dashboard built around what they actually need.</p>
     <div class="roles-grid">
       <div class="role-card">
         <div class="role-emoji">🙋</div>
         <div>
           <h3>Patients</h3>
-          <p>Search for available doctors, book appointments at your convenience, and receive instant confirmation.</p>
+          <p>Find available doctors, book appointments, and keep track of your visit history.</p>
           <ul>
             <li>Book appointments</li>
             <li>View history</li>
@@ -276,7 +261,7 @@ footer span{color:rgba(255,255,255,0.5);}
         <div class="role-emoji">🩺</div>
         <div>
           <h3>Doctors</h3>
-          <p>Manage your schedule, review upcoming appointments, and update your availability in real time.</p>
+          <p>Set your availability, view your upcoming schedule, and manage your time slots.</p>
           <ul>
             <li>Set availability</li>
             <li>View patients</li>
@@ -288,10 +273,10 @@ footer span{color:rgba(255,255,255,0.5);}
         <div class="role-emoji">🗂️</div>
         <div>
           <h3>Receptionists</h3>
-          <p>Book and manage appointments on behalf of patients. Handle walk-ins and last-minute changes with ease.</p>
+          <p>Book and manage appointments for patients. Handle changes quickly and easily.</p>
           <ul>
             <li>Manage bookings</li>
-            <li>Cancel / reschedule</li>
+            <li>Cancel and reschedule</li>
             <li>Assist patients</li>
           </ul>
         </div>
@@ -300,7 +285,7 @@ footer span{color:rgba(255,255,255,0.5);}
         <div class="role-emoji">🛡️</div>
         <div>
           <h3>Admins</h3>
-          <p>Oversee the entire system — manage users, monitor activity, and keep clinic operations running smoothly.</p>
+          <p>Manage users, monitor activity, and keep the clinic running smoothly.</p>
           <ul>
             <li>User management</li>
             <li>System oversight</li>
@@ -312,14 +297,12 @@ footer span{color:rgba(255,255,255,0.5);}
   </div>
 </section>
 
-<!-- CTA -->
 <section class="cta-section">
-  <h2>Ready to streamline your clinic?</h2>
-  <p>Sign in with a demo account and explore Clinify in action — no setup required.</p>
-  <a href="Login.html" class="btn-white">Sign In to Clinify →</a>
+  <h2>Ready to get started?</h2>
+  <p>Sign in with a demo account and try Clinify with no setup required.</p>
+  <a href="Login.html" class="btn-white">Sign In to Clinify</a>
 </section>
 
-<!-- FOOTER -->
 <footer>
   <p><span>Clinify</span> · Medical Appointment System · CP317, Wilfrid Laurier University</p>
 </footer>
