@@ -83,6 +83,8 @@ Patient Selects Time Slot
 | *Ebrahim Ghani* | *Developer* |
 | *Jiale Zhang* | *Developer* |
 | *Umair Waraich* | *Developer* |
+| *Zayan Syeed* | *Developer* |
+| *Niranjan Prabu* | *Developer* |
 
 ---
 
