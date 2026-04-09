@@ -15,10 +15,10 @@ nav{background:var(--teal);padding:0 32px;display:flex;align-items:center;justif
 .nav-role{font-size:12px;background:rgba(255,255,255,0.15);color:#fff;padding:4px 10px;border-radius:20px;font-weight:600;}
 .nav-logout{font-size:13px;color:rgba(255,255,255,0.75);text-decoration:none;}
 .nav-logout:hover{color:#fff;}
-.container{max-width:940px;margin:32px auto;padding:0 20px;}
+.container{max-width:960px;margin:32px auto;padding:0 20px;}
 #banner{display:none;padding:12px 18px;border-radius:8px;font-size:14px;margin-bottom:20px;font-weight:500;}
 #banner.success{background:#d4edda;color:#155724;border:1px solid #c3e6cb;}
-#banner.error  {background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;}
+#banner.error{background:#f8d7da;color:#721c24;border:1px solid #f5c6cb;}
 .card{background:#fff;border-radius:12px;padding:28px;margin-bottom:24px;box-shadow:0 1px 6px rgba(0,0,0,0.07);}
 .card-title{font-family:'DM Serif Display',serif;font-size:19px;color:var(--slate);margin-bottom:20px;padding-bottom:12px;border-bottom:1px solid var(--border);}
 .form-row{display:flex;gap:16px;flex-wrap:wrap;align-items:flex-end;}
@@ -32,9 +32,11 @@ td{padding:12px 14px;border-bottom:1px solid #eef1f0;vertical-align:middle;}
 tr:last-child td{border-bottom:none;}
 tr:hover td{background:#fafcfb;}
 .badge{padding:3px 10px;border-radius:20px;font-size:12px;font-weight:600;}
+.badge-available{background:#cce5ff;color:#004085;}
+.badge-booked{background:#fff3cd;color:#856404;}
 .badge-confirmed{background:#d4edda;color:#155724;}
 .badge-cancelled{background:#f8d7da;color:#721c24;}
-.badge-available{background:#cce5ff;color:#004085;}
+.badge-completed{background:#e2e3e5;color:#383d41;}
 .btn{padding:8px 18px;border:none;border-radius:6px;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;transition:all 0.2s;}
 .btn-teal{background:var(--teal);color:#fff;}
 .btn-teal:hover{background:var(--teal2);}
@@ -42,6 +44,9 @@ tr:hover td{background:#fafcfb;}
 .btn-red:hover{background:#a93226;}
 .btn-sm{padding:5px 12px;font-size:12px;}
 .empty{color:var(--muted);font-size:14px;text-align:center;padding:24px;}
+.user-result{margin-top:16px;padding:14px 16px;background:var(--mint);border-radius:8px;font-size:14px;display:none;}
+.user-result span{font-weight:600;color:var(--teal);}
+.divider{height:1px;background:var(--border);margin:20px 0;}
 </style>
 </head>
 <body>
@@ -56,7 +61,17 @@ tr:hover td{background:#fafcfb;}
 <div class="container">
   <div id="banner"></div>
 
-  <!-- create time slot for a doctor -->
+  <!-- USER LOOKUP -->
+  <div class="card">
+    <div class="card-title">Find User</div>
+    <div class="form-row">
+      <div class="field" style="min-width:200px;"><label>Search by ID or Email</label><input type="text" id="userSearch" placeholder="e.g. 2 or mary@example.com"/></div>
+      <button class="btn btn-teal" onclick="lookupUser()">Search</button>
+    </div>
+    <div class="user-result" id="userResult"></div>
+  </div>
+
+  <!-- SLOT MANAGEMENT -->
   <div class="card">
     <div class="card-title">Create Time Slot for Doctor</div>
     <div class="form-row">
@@ -66,18 +81,25 @@ tr:hover td{background:#fafcfb;}
       <div class="field"><label>End Time</label><input type="time" id="endTime"/></div>
       <button class="btn btn-teal" onclick="createSlot()">Create Slot</button>
     </div>
-  </div>
 
-  <!-- delete a slot -->
-  <div class="card">
-    <div class="card-title">Delete Time Slot</div>
+    <div class="divider"></div>
+
     <div class="form-row">
-      <div class="field"><label>Slot ID</label><input type="number" id="deleteSlotID" placeholder="Slot ID"/></div>
+      <div class="field"><label>Delete by Slot ID</label><input type="number" id="deleteSlotID" placeholder="Slot ID"/></div>
       <button class="btn btn-red" onclick="deleteSlot()">Delete Slot</button>
     </div>
   </div>
 
-  <!-- book appointment for a patient -->
+  <!-- ALL SLOTS -->
+  <div class="card">
+    <div class="card-title">All Time Slots</div>
+    <table>
+      <thead><tr><th>Slot ID</th><th>Doctor ID</th><th>Date</th><th>Start</th><th>End</th><th>Status</th></tr></thead>
+      <tbody id="slotTable"><tr><td colspan="6" class="empty">No slots yet.</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- BOOK / CANCEL -->
   <div class="card">
     <div class="card-title">Book Appointment for Patient</div>
     <div class="form-row">
@@ -85,115 +107,185 @@ tr:hover td{background:#fafcfb;}
       <div class="field"><label>Slot ID</label><input type="number" id="bookSlotID" placeholder="Slot ID"/></div>
       <button class="btn btn-teal" onclick="bookForPatient()">Book</button>
     </div>
-  </div>
 
-  <!-- cancel appointment -->
-  <div class="card">
-    <div class="card-title">Cancel Appointment</div>
+    <div class="divider"></div>
+
     <div class="form-row">
-      <div class="field"><label>Appointment ID</label><input type="number" id="cancelApptID" placeholder="Appt ID"/></div>
+      <div class="field"><label>Cancel by Appointment ID</label><input type="number" id="cancelApptID" placeholder="Appt ID"/></div>
       <button class="btn btn-red" onclick="cancelAppt()">Cancel Appointment</button>
     </div>
   </div>
 
-  <!-- all appointments -->
+  <!-- ALL APPOINTMENTS -->
   <div class="card">
     <div class="card-title">All Appointments</div>
     <table>
-      <thead><tr><th>Appt ID</th><th>Patient ID</th><th>Doctor ID</th><th>Slot ID</th><th>Status</th></tr></thead>
-      <tbody id="apptTable"><tr><td colspan="5" class="empty">Click refresh to load.</td></tr></tbody>
+      <thead><tr><th>Appt ID</th><th>Patient ID</th><th>Slot ID</th><th>Date</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody id="apptTable"><tr><td colspan="6" class="empty">No appointments yet.</td></tr></tbody>
     </table>
-    <div style="margin-top:16px;">
-      <button class="btn btn-teal btn-sm" onclick="loadAppts()">Refresh Appointments</button>
-    </div>
   </div>
 </div>
 
 <script>
-function showBanner(msg,type){
-  const b=document.getElementById('banner');
-  b.className=type; b.innerText=msg; b.style.display='block';
-  setTimeout(()=>b.style.display='none',3500);
+// Default users seeded so lookup works out of the box
+const DEFAULT_USERS = [
+  { id: '1', email: 'john@example.com', role: 'Doctor' },
+  { id: '2', email: 'mary@example.com', role: 'Patient' },
+  { id: '3', email: 'bob@example.com',  role: 'Receptionist' },
+];
+
+function showBanner(msg, type) {
+  const b = document.getElementById('banner');
+  b.className = type; b.innerText = msg; b.style.display = 'block';
+  setTimeout(() => b.style.display = 'none', 3500);
 }
 
-/* create slot: GET /receptionist/manage/createSlot?doctorID=&date=&startTime=&endTime= */
-function createSlot(){
-  const doctorID=document.getElementById('docID').value;
-  const date=document.getElementById('slotDate').value;
-  const start=document.getElementById('startTime').value;
-  const end=document.getElementById('endTime').value;
-  if(!doctorID||!date||!start||!end){showBanner('Please fill in all fields.','error');return;}
-  fetch(`/receptionist/manage/createSlot?doctorID=${doctorID}&date=${date}&startTime=${start}&endTime=${end}`)
-    .then(r=>r.text())
-    .then(resp=>{
-      if(resp.includes('OK')||resp.trim()==='OK'){showBanner('Time slot created.','success');}
-      else showBanner('Error: '+resp,'error');
-    })
-    .catch(()=>showBanner('Server error.','error'));
+function getSlots()        { return JSON.parse(localStorage.getItem('slots') || '[]'); }
+function saveSlots(s)      { localStorage.setItem('slots', JSON.stringify(s)); }
+function getAppts()        { return JSON.parse(localStorage.getItem('appointments') || '[]'); }
+function saveAppts(a)      { localStorage.setItem('appointments', JSON.stringify(a)); }
+
+// ── USER LOOKUP ──────────────────────────────────────────
+function lookupUser() {
+  const q = document.getElementById('userSearch').value.trim().toLowerCase();
+  const res = document.getElementById('userResult');
+  if (!q) { showBanner('Enter an ID or email to search.', 'error'); return; }
+
+  const user = DEFAULT_USERS.find(u => u.id === q || u.email.toLowerCase() === q);
+  if (!user) {
+    res.style.display = 'block';
+    res.innerHTML = `No user found for <span>${q}</span>.`;
+    return;
+  }
+
+  const appts = getAppts().filter(a => String(a.patientID) === String(user.id));
+  const slots  = getSlots().filter(s => String(s.doctorID)  === String(user.id));
+
+  let html = `<span>${user.role} #${user.id}</span> — ${user.email}`;
+
+  if (user.role === 'Patient' && appts.length) {
+    html += `<br/><br/><strong>Appointments:</strong> `;
+    html += appts.map(a => `Appt #${a.apptID} (Slot ${a.slotID}, ${a.status})`).join(' · ');
+  }
+  if (user.role === 'Doctor' && slots.length) {
+    html += `<br/><br/><strong>Slots:</strong> `;
+    html += slots.map(s => `Slot #${s.slotID} on ${s.date} ${s.startTime}–${s.endTime} [${s.status}]`).join(' · ');
+  }
+
+  res.style.display = 'block';
+  res.innerHTML = html;
 }
 
-/* delete slot: GET /receptionist/manage/deleteSlot?slotID= */
-function deleteSlot(){
-  const slotID=document.getElementById('deleteSlotID').value;
-  if(!slotID){showBanner('Enter a Slot ID.','error');return;}
-  fetch(`/receptionist/manage/deleteSlot?slotID=${slotID}`)
-    .then(r=>r.text())
-    .then(resp=>{
-      if(resp.trim()==='OK'){showBanner('Slot deleted.','success');}
-      else showBanner('Error: '+resp,'error');
-    })
-    .catch(()=>showBanner('Server error.','error'));
+// ── SLOTS ────────────────────────────────────────────────
+function createSlot() {
+  const doctorID = document.getElementById('docID').value.trim();
+  const date     = document.getElementById('slotDate').value;
+  const start    = document.getElementById('startTime').value;
+  const end      = document.getElementById('endTime').value;
+  if (!doctorID || !date || !start || !end) { showBanner('Please fill in all fields.', 'error'); return; }
+  if (start >= end) { showBanner('End time must be after start time.', 'error'); return; }
+
+  const all = getSlots();
+  const newID = all.length ? Math.max(...all.map(s => s.slotID)) + 1 : 1;
+  all.push({ slotID: newID, doctorID, date, startTime: start, endTime: end, status: 'Available' });
+  saveSlots(all);
+  showBanner('Slot created. ID: ' + newID, 'success');
+  loadSlots(); loadAppts();
 }
 
-/* book for patient: GET /receptionist/manage/book?patientID=&slotID= */
-function bookForPatient(){
-  const patientID=document.getElementById('patID').value;
-  const slotID=document.getElementById('bookSlotID').value;
-  if(!patientID||!slotID){showBanner('Enter both Patient ID and Slot ID.','error');return;}
-  fetch(`/receptionist/manage/book?patientID=${patientID}&slotID=${slotID}`)
-    .then(r=>r.text())
-    .then(resp=>{
-      if(resp.includes('appointmentID')){
-        const data=JSON.parse(resp);
-        showBanner('Appointment booked! ID: '+data.appointmentID,'success');
-        loadAppts();
-      } else showBanner('Error: '+resp,'error');
-    })
-    .catch(()=>showBanner('Server error.','error'));
+function deleteSlot() {
+  const id = parseInt(document.getElementById('deleteSlotID').value);
+  if (!id) { showBanner('Enter a Slot ID.', 'error'); return; }
+  const all = getSlots();
+  const slot = all.find(s => s.slotID === id);
+  if (!slot) { showBanner('Slot not found.', 'error'); return; }
+  if (slot.status === 'Booked') { showBanner('Cannot delete a booked slot. Cancel the appointment first.', 'error'); return; }
+  saveSlots(all.filter(s => s.slotID !== id));
+  showBanner('Slot deleted.', 'success');
+  loadSlots();
 }
 
-/* cancel: GET /receptionist/manage/cancel?appointmentID= */
-function cancelAppt(){
-  const apptID=document.getElementById('cancelApptID').value;
-  if(!apptID){showBanner('Enter an Appointment ID.','error');return;}
-  fetch(`/receptionist/manage/cancel?appointmentID=${apptID}`)
-    .then(r=>r.text())
-    .then(resp=>{
-      if(resp.trim()==='OK'){showBanner('Appointment cancelled.','success');loadAppts();}
-      else showBanner('Error: '+resp,'error');
-    })
-    .catch(()=>showBanner('Server error.','error'));
+function loadSlots() {
+  const all = getSlots();
+  const tb = document.getElementById('slotTable');
+  if (!all.length) { tb.innerHTML = '<tr><td colspan="6" class="empty">No slots yet.</td></tr>'; return; }
+  tb.innerHTML = all.map(s => {
+    const bc = s.status === 'Available' ? 'badge-available' : 'badge-booked';
+    return `<tr>
+      <td>${s.slotID}</td><td>${s.doctorID}</td><td>${s.date}</td>
+      <td>${s.startTime}</td><td>${s.endTime}</td>
+      <td><span class="badge ${bc}">${s.status}</span></td>
+    </tr>`;
+  }).join('');
 }
 
-/* load all appointments by checking each known patientID */
-function loadAppts(){
-  const tb=document.getElementById('apptTable');
-  tb.innerHTML='<tr><td colspan="5" class="empty">Loading...</td></tr>';
-  /* fetch appointments for patients 1 through 10 and combine */
-  const promises=[];
-  for(let i=1;i<=10;i++) promises.push(fetch(`/patient/appointments/myappointments?patientID=${i}`).then(r=>r.json()).catch(()=>[]));
-  Promise.all(promises).then(results=>{
-    const all=[].concat(...results);
-    if(!all.length){tb.innerHTML='<tr><td colspan="5" class="empty">No appointments found.</td></tr>';return;}
-    tb.innerHTML=all.map(a=>{
-      const bc=a.status==='Confirmed'?'badge-confirmed':'badge-cancelled';
-      return `<tr>
-        <td>${a.appointmentID}</td><td>${a.patientID||'?'}</td><td>${a.doctorID}</td><td>${a.slotID}</td>
-        <td><span class="badge ${bc}">${a.status}</span></td>
-      </tr>`;
-    }).join('');
-  });
+// ── APPOINTMENTS ─────────────────────────────────────────
+function bookForPatient() {
+  const patientID = document.getElementById('patID').value.trim();
+  const slotID    = parseInt(document.getElementById('bookSlotID').value);
+  if (!patientID || !slotID) { showBanner('Enter both Patient ID and Slot ID.', 'error'); return; }
+
+  const slots = getSlots();
+  const slot  = slots.find(s => s.slotID === slotID);
+  if (!slot)                      { showBanner('Slot not found.', 'error'); return; }
+  if (slot.status !== 'Available'){ showBanner('Slot is not available.', 'error'); return; }
+
+  const appts = getAppts();
+  const newID = appts.length ? Math.max(...appts.map(a => a.apptID)) + 1 : 1;
+  appts.push({ apptID: newID, patientID, slotID, status: 'Confirmed' });
+  saveAppts(appts);
+
+  slot.status = 'Booked';
+  saveSlots(slots);
+
+  showBanner('Appointment booked! ID: ' + newID, 'success');
+  loadSlots(); loadAppts();
 }
+
+function cancelAppt() {
+  const id = parseInt(document.getElementById('cancelApptID').value);
+  if (!id) { showBanner('Enter an Appointment ID.', 'error'); return; }
+
+  const appts = getAppts();
+  const appt  = appts.find(a => a.apptID === id);
+  if (!appt) { showBanner('Appointment not found.', 'error'); return; }
+
+  appt.status = 'Cancelled';
+  saveAppts(appts);
+
+  // free up the slot
+  const slots = getSlots();
+  const slot  = slots.find(s => s.slotID === appt.slotID);
+  if (slot) { slot.status = 'Available'; saveSlots(slots); }
+
+  showBanner('Appointment cancelled.', 'success');
+  loadSlots(); loadAppts();
+}
+
+function loadAppts() {
+  const all = getAppts();
+  const tb  = document.getElementById('apptTable');
+  if (!all.length) { tb.innerHTML = '<tr><td colspan="6" class="empty">No appointments yet.</td></tr>'; return; }
+  tb.innerHTML = all.map(a => {
+    const bc = a.status === 'Confirmed' ? 'badge-confirmed' : a.status === 'Cancelled' ? 'badge-cancelled' : 'badge-completed';
+    const canCancel = a.status === 'Confirmed'
+      ? `<button class="btn btn-red btn-sm" onclick="quickCancel(${a.apptID})">Cancel</button>` : '—';
+    return `<tr>
+      <td>${a.apptID}</td><td>${a.patientID}</td><td>${a.slotID}</td>
+      <td>${getSlots().find(s=>s.slotID===a.slotID)?.date||'—'}</td>
+      <td><span class="badge ${bc}">${a.status}</span></td>
+      <td>${canCancel}</td>
+    </tr>`;
+  }).join('');
+}
+
+function quickCancel(id) {
+  document.getElementById('cancelApptID').value = id;
+  cancelAppt();
+}
+
+loadSlots();
+loadAppts();
 </script>
 </body>
 </html>
