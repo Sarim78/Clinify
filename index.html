@@ -50,7 +50,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .card-body{padding:24px 28px;}
 .appt-row{display:flex;align-items:center;gap:14px;padding:12px 0;border-bottom:1px solid var(--border);}
 .appt-row:last-child{border:none;padding-bottom:0;}
-.appt-avatar{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
 .appt-info strong{display:block;font-size:13px;font-weight:600;color:var(--slate);}
 .appt-info span{font-size:12px;color:var(--muted);}
 .appt-badge{margin-left:auto;font-size:11px;font-weight:700;padding:4px 10px;border-radius:100px;}
@@ -70,7 +69,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .features-grid{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;}
 .feat-card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:32px;transition:box-shadow .2s,transform .2s;}
 .feat-card:hover{box-shadow:0 12px 40px rgba(26,92,74,0.1);transform:translateY(-3px);}
-.feat-icon{width:48px;height:48px;background:var(--mint);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:20px;}
 .feat-card h3{font-size:17px;font-weight:700;color:var(--slate);margin-bottom:10px;}
 .feat-card p{font-size:14px;line-height:1.65;color:var(--muted);}
 
@@ -79,7 +77,6 @@ nav{position:fixed;top:0;left:0;right:0;z-index:100;background:rgba(255,255,255,
 .roles-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px;margin-top:60px;}
 .role-card{border-radius:16px;padding:36px;display:flex;gap:22px;align-items:flex-start;border:1px solid var(--border);transition:box-shadow .2s;}
 .role-card:hover{box-shadow:0 8px 30px rgba(26,92,74,0.1);}
-.role-emoji{font-size:32px;flex-shrink:0;}
 .role-card h3{font-size:18px;font-weight:700;color:var(--slate);margin-bottom:8px;}
 .role-card p{font-size:14px;line-height:1.65;color:var(--muted);}
 .role-card ul{margin-top:12px;padding-left:0;list-style:none;display:flex;flex-wrap:wrap;gap:8px;}
@@ -143,7 +140,6 @@ footer span{color:rgba(255,255,255,0.5);}
         </div>
         <div class="card-body">
           <div class="appt-row">
-            <div class="appt-avatar" style="background:#e8f4ec;">🩺</div>
             <div class="appt-info">
               <strong>Dr. John Smith</strong>
               <span>General Practice · 9:00 AM</span>
@@ -151,7 +147,6 @@ footer span{color:rgba(255,255,255,0.5);}
             <span class="appt-badge badge-green">Confirmed</span>
           </div>
           <div class="appt-row">
-            <div class="appt-avatar" style="background:#e8eef4;">🫁</div>
             <div class="appt-info">
               <strong>Dr. Lisa Chen</strong>
               <span>Pulmonology · 11:30 AM</span>
@@ -159,7 +154,6 @@ footer span{color:rgba(255,255,255,0.5);}
             <span class="appt-badge badge-blue">Upcoming</span>
           </div>
           <div class="appt-row">
-            <div class="appt-avatar" style="background:#f4f0e8;">🧠</div>
             <div class="appt-info">
               <strong>Dr. Mark Patel</strong>
               <span>Neurology · 2:15 PM</span>
@@ -167,7 +161,6 @@ footer span{color:rgba(255,255,255,0.5);}
             <span class="appt-badge badge-orange">Pending</span>
           </div>
           <div class="appt-row">
-            <div class="appt-avatar" style="background:#f0e8f4;">❤️</div>
             <div class="appt-info">
               <strong>Dr. Sarah Obi</strong>
               <span>Cardiology · 4:00 PM</span>
@@ -207,32 +200,26 @@ footer span{color:rgba(255,255,255,0.5);}
   <p class="section-sub">Clinify takes care of scheduling so your team can focus on patient care.</p>
   <div class="features-grid">
     <div class="feat-card">
-      <div class="feat-icon">📅</div>
       <h3>Smart Scheduling</h3>
       <p>Doctors set their availability and patients book open slots instantly with no conflicts.</p>
     </div>
     <div class="feat-card">
-      <div class="feat-icon">🔔</div>
       <h3>Instant Notifications</h3>
       <p>Patients and doctors are notified when an appointment is booked, updated, or cancelled.</p>
     </div>
     <div class="feat-card">
-      <div class="feat-icon">🧑‍⚕️</div>
       <h3>Multi-Role Access</h3>
       <p>Separate dashboards for Patients, Doctors, Receptionists, and Admins with the right tools for each.</p>
     </div>
     <div class="feat-card">
-      <div class="feat-icon">🧾</div>
       <h3>Invoice Management</h3>
       <p>Generate invoices automatically for completed appointments.</p>
     </div>
     <div class="feat-card">
-      <div class="feat-icon">🔐</div>
       <h3>Secure Login</h3>
       <p>Each user only sees what is relevant to their role, keeping all data private and secure.</p>
     </div>
     <div class="feat-card">
-      <div class="feat-icon">📊</div>
       <h3>Appointment History</h3>
       <p>View past and upcoming appointments anytime from both the patient and provider side.</p>
     </div>
@@ -246,7 +233,6 @@ footer span{color:rgba(255,255,255,0.5);}
     <p class="section-sub">Each user gets a dashboard built around what they actually need.</p>
     <div class="roles-grid">
       <div class="role-card">
-        <div class="role-emoji">🙋</div>
         <div>
           <h3>Patients</h3>
           <p>Find available doctors, book appointments, and keep track of your visit history.</p>
@@ -258,7 +244,6 @@ footer span{color:rgba(255,255,255,0.5);}
         </div>
       </div>
       <div class="role-card">
-        <div class="role-emoji">🩺</div>
         <div>
           <h3>Doctors</h3>
           <p>Set your availability, view your upcoming schedule, and manage your time slots.</p>
@@ -270,7 +255,6 @@ footer span{color:rgba(255,255,255,0.5);}
         </div>
       </div>
       <div class="role-card">
-        <div class="role-emoji">🗂️</div>
         <div>
           <h3>Receptionists</h3>
           <p>Book and manage appointments for patients. Handle changes quickly and easily.</p>
@@ -282,7 +266,6 @@ footer span{color:rgba(255,255,255,0.5);}
         </div>
       </div>
       <div class="role-card">
-        <div class="role-emoji">🛡️</div>
         <div>
           <h3>Admins</h3>
           <p>Manage users, monitor activity, and keep the clinic running smoothly.</p>
